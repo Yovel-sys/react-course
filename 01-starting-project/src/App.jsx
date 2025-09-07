@@ -1,32 +1,42 @@
-const reactDescroptions = ["Fundamental", "Crucial", "Core"];
-
-function genRandomInt(max) {
-  return Math.floor(Math.random() * (max + 1));
-}
-
-function Header() {
-  const desctiption = reactDescroptions[genRandomInt(2)];
-  return (
-    <header>
-      <img src="src/assets/react-core-concepts.png" alt="Stylized atom" />
-      <h1>React Essentials</h1>
-      <p>
-        {desctiption} React concepts you will need for almost any app you are
-        going to build!
-      </p>
-    </header>
-  );
-}
+import { CORE_CONCEPTS } from './data.js';
+import Header from './components/Header/Header.jsx';
+import CoreComponents from './components/CoreConsept.jsx';
+import TabButton from './components/TabButton.jsx';
 
 function App() {
-  return (
-    <div>
-      <Header />
-      <main>
-        <h2>Time to get started!</h2>
-      </main>
-    </div>
-  );
+	function handleClick() {
+		console.log('Hello World! - selected');
+	}
+
+	return (
+		<div>
+			<Header />
+			<main>
+				<section id="core-concepts">
+					<h2>Core Concepts</h2>
+					<ul>
+						<CoreComponents
+							title={CORE_CONCEPTS[0].title}
+							description={CORE_CONCEPTS[0].description}
+							image={CORE_CONCEPTS[0].image}
+						/>
+						<CoreComponents {...CORE_CONCEPTS[1]} />
+						<CoreComponents {...CORE_CONCEPTS[2]} />
+						<CoreComponents {...CORE_CONCEPTS[3]} />
+					</ul>
+				</section>
+				<section id="examples">
+					<h2>Examples</h2>
+					<menu>
+						<TabButton onSelect={handleClick}>Components</TabButton>
+						<TabButton onSelect={handleClick}>JSX</TabButton>
+						<TabButton onSelect={handleClick}>Props</TabButton>
+						<TabButton onSelect={handleClick}>State</TabButton>
+					</menu>
+				</section>
+			</main>
+		</div>
+	);
 }
 
 export default App;
