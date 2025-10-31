@@ -2,6 +2,8 @@ import { calculateInvestmentResults } from "../util/investment.js";
 export default function Results({ input }) {
   const investmentResult = calculateInvestmentResults(input);
   console.log(investmentResult);
+  let interestUntilNow = 0;
+  let totalInvestment = Number(input.initialInvestment);
 
   return (
     <div id="result">
@@ -17,13 +19,15 @@ export default function Results({ input }) {
         </thead>
         <tbody>
           {investmentResult.map((row) => {
+            interestUntilNow += row.interest;
+            totalInvestment += input.annualInvestment;
             return (
               <tr key={row.year}>
                 <th>{row.year}</th>
                 <td>{row.valueEndOfYear}</td>
                 <td>{row.interest}</td>
-                <td>{}</td>
-                <td></td>
+                <td>{interestUntilNow}</td>
+                <td>{totalInvestment}</td>
               </tr>
             );
           })}
